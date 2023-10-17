@@ -41,8 +41,11 @@ if __name__ == '__main__':
     for t in range(timesteps):
         rMNN.run(mu_s, sigma_s, dt=dt)
     u, s, c = rMNN.u, rMNN.s, rMNN.cov
-
+    # visualization mean and the covariance
+    plt.subplot(2,1,1)
     plt.plot(u)
-    plt.imshow(c,vmax=1,vmin=-1)
+    plt.subplot(2, 1, 2)
+    plt.imshow(c,vmax=5e-5,vmin=-5e-5,cmap='coolwarm')
     plt.colorbar()
     plt.show()
+
