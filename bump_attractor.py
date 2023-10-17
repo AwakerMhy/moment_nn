@@ -36,9 +36,7 @@ if __name__ == '__main__':
     init_condition = [np.zeros(num_neurons), 0.1 * np.random.rand(num_neurons),
                       0.0001 * np.eye(num_neurons)]
     init_condition[0][175:225]=1
-
-    init_condition = [init.numpy() for init in init_condition]
-
+    
     rMNN = rnn(num_neurons, we=we, wi=wi, de=de, di=di, init_condition=init_condition)
     for t in range(timesteps):
         rMNN.run(mu_s, sigma_s, dt=dt)
