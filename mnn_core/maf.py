@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-
-
 import numpy as np
 from fast_dawson import *
 import time
@@ -99,11 +97,11 @@ class MomentActivation():
         ub = (1-ubar[indx2])/(sbar[indx2]*np.sqrt(self.L))
         lb = -ubar[indx2]/(sbar[indx2]*np.sqrt(self.L))
         
-        delta_g = self.ds1.dawson1(ub) - self.ds1.dawson1(lb)        
-        X[indx2] = self.u[indx2]*self.u[indx2]/self.s[indx2]*delta_g*2/self.L/np.sqrt(self.L)
-        
-        #delta_H = self.ds2.int_fast(ub) - self.ds2.int_fast(lb)       
-        #X[indx2] = np.sqrt(self.u[indx2])*delta_g/np.sqrt(delta_H)/np.sqrt(2*self.L) # alternative method
+        delta_g = self.ds1.dawson1(ub) - self.ds1.dawson1(lb)
+        X[indx2] = self.u[indx2]*self.u[indx2]/(self.s[indx2])*delta_g*2/self.L/np.sqrt(self.L)
+
+        # delta_H = self.ds2.int_fast(ub) - self.ds2.int_fast(lb)
+        # X[indx2] = np.sqrt(self.u[indx2])*delta_g/np.sqrt(delta_H)/np.sqrt(2*self.L) # alternative method
         
         # Region 2 is calculated with analytical limit as sbar --> 0
         indx3 = np.logical_and(~indx0, ubar <= self.Vth*self.L)
@@ -111,6 +109,8 @@ class MomentActivation():
         
         X[indx3] = 0.0
         X[indx4] = np.sqrt(2/self.L)/np.sqrt(self.Tref - 1/self.L*np.log(1-1/ubar[indx4]))/np.sqrt(2*ubar[indx4]-1)
+
+        #self.vol_th * u_a[indx4] * u_a[indx4] / ubar[indx4] / (ubar[indx4] - self.vol_th * self.L)
         
         self.X = X
         return X 
